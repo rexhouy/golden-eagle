@@ -4,7 +4,7 @@
       <md-card-title-text>
         <span class="md-headline">{{item.name}}</span>
         <span class="md-subhead">
-          <div class="price">{{item.prices[0].amount | number: 2}}</div>
+          <div class="price"><small style="font-size: 12px;padding-right: 8px;">￥</small>{{item.prices[0].amount | number: 2}}</div>
           <div style="font-size:13px;">活动日期：{{item.startTime | date: 'M月dd日'}} ~ {{item.endTime | date:'M月dd日'}}</div>
         </span>
       </md-card-title-text>
