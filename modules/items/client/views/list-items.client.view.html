@@ -1,18 +1,20 @@
-<div layout="column" style="background: #f1f1f1;">
-  <div class="card" ng-cloak flex-gt-sm="50" flex="100" ng-repeat="item in vm.items">
-    <div class="card-title">
-      <div class="title-text">
+<div style="background: #f1f1f1;">
+  <md-card ng-cloak ng-repeat="item in vm.items">
+    <md-card-title>
+      <md-card-title-text>
         <span class="md-headline">{{item.name}}</span>
         <span class="md-subhead">
-          <div class="price"><small style="font-size: 12px;padding-right: 8px;">￥</small>{{item.prices[0].amount | number: 2}}</div>
+          <div class="price"><small style="font-size: 12px;padding-right: 8px;"></small>{{item.prices[0].amount | number: 2}}</div>
           <div style="font-size:13px;">活动日期：{{item.startTime | date: 'M月dd日'}} ~ {{item.endTime | date:'M月dd日'}}</div>
         </span>
-      </div>
-      <div class="card-title-media">
-        <img src="{{item.img}}">
-      </div>
-    </div>
-    <div class="card-content">
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-md card-media">
+          <img src="{{item.img}}">
+        </div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-content>
       <div class="sales-progress">
         <ul class="price-info">
           <li ng-repeat="price in item.prices" layout="column" layout-align="start start" style="{{price.position}}">
@@ -29,10 +31,10 @@
         <md-icon class="material-icons">schedule</md-icon><span>剩余时间</span>
         <span class="time">{{item.timeLeft}}</span>
       </div>
-    </div>
-    <div class="card-actions" layout="row" layout-align="end center">
+    </md-content>
+    <md-card-actions layout="row" layout-align="end center">
       <!-- <md-button data-ui-sref="items.edit({itemId: item._id})">查看规则</md-button> -->
       <md-button ng-href="/items/{{item._id}}/register">我要参与</md-button>
-    </div>
-  </div>
+    </md-card-actions>
+  </md-card>
 </div>
