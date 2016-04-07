@@ -1,0 +1,31 @@
+<div layout layout-align="center center">
+  <md-card ng-cloak flex-gt-sm="50">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{vm.item.name}}</span>
+        <span class="md-subhead">
+          <p>日期：{{vm.item.startTime | date:'yyyy-MM-dd'}} ~ {{vm.item.endTime | date:'yyyy-MM-dd'}}</p>
+          <p>
+            <div layout="row">
+              <label flex="10">价格：</label>
+              <ul flex style="margin:0">
+                <li ng-repeat="price in vm.item.prices">参与人数：{{price.count}}，价格：{{price.amount}}</li>
+              </ul>
+            </div>
+          </p>
+          <p>销量：{{vm.item.sales}}</p>
+          <p>库存：{{vm.item.storage}}</p>
+        </span>
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-lg card-media">
+          <img src="{{vm.item.img}}">
+        </div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button data-ui-sref="items.edit({itemId: vm.item._id})">修改</md-button>
+      <md-button ng-click="vm.remove()">删除</md-button>
+    </md-card-actions>
+  </md-card>
+</div>

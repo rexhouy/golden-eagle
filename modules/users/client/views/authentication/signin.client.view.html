@@ -1,0 +1,25 @@
+<div data-ng-controller="AuthenticationController">
+  <div layout="row" layout-wrap layout-align="center center">
+    <md-card flex="100" flex-gt-sm="50" flex-gt-md="30">
+      <md-card-content>
+        <alert type="danger" data-ng-show="error">
+          <span data-ng-bind="error"></span>
+        </alert>
+        <md-icon class="material-icons auth-icon">account_circle</md-icon>
+        <form data-ng-submit="signin()" class="signin" autocomplete="off">
+          <md-input-container class="md-icon-float md-block">
+            <label>用户名</label>
+            <input  data-ng-model="credentials.username" name="username" type="text">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>密码</label>
+            <input type="password" data-ng-model="credentials.password" name="password">
+          </md-input-container>
+          <md-card-actions layout="column" layout-align="start">
+            <md-button type="submit" class="md-raised md-primary">登录</md-button>
+          </md-card-actions>
+      </md-card-content>
+      </form>
+    </md-card>
+  </div>
+</div>

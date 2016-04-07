@@ -1,0 +1,62 @@
+<div layout layout-align="center center">
+  <md-card ng-cloak flex-gt-sm="50">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{vm.item._id ? '修改' : '创建'}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content layout-padding>
+      <form name="vm.form.itemForm" ng-submit="vm.save(vm.form.itemForm.$valid)" enctype="multipart/form-data">
+        <md-input-container class="md-block" style="margin:16px;">
+          <label>名字</label>
+          <input required md-no-asterisk name="name" ng-model="vm.item.name">
+          <div ng-messages="vm.form.itemForm.name.$error">
+            <div ng-message="required">请输入名字。</div>
+          </div>
+        </md-input-container>
+        <div class="md-block" style="margin:16px;">
+          <label>图片</label>
+          <input type="file" nv-file-select="" uploader="uploader" />
+          <input type="hidden" name="img" ng-model="vm.item.img">
+          <span ng-show="uploadSucceed">上传成功！</span>
+          <div ng-show="uploader.isHTML5 && uploadStarted">
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploadItem.progress + '%' }"></div>
+            </div>
+          </div>
+        </div>
+        <div class="md-block">
+          <md-datepicker required name="startTime" ng-model="vm.item.startTime" md-placeholder="开始日期"></md-datepicker>
+          <md-datepicker required name="endTime" ng-model="vm.item.endTime" md-placeholder="结束日期"></md-datepicker>
+        </div>
+        <md-input-container class="md-block" style="margin:16px;">
+          <label>库存</label>
+          <input type="number" required md-no-asterisk name="storage" ng-model="vm.item.storage">
+          <div ng-messages="vm.form.itemForm.storage.$error">
+            <div ng-message="required">请输入库存。</div>
+          </div>
+        </md-input-container>
+        <fieldset class="price-info">
+          <lagend>价格信息</lagend>
+          <div layout ng-repeat="price in vm.item.prices">
+            <md-input-container flex="50">
+              <label>价格</label>
+              <input required md-no-asterisk name="prices.amount" ng-model="price.amount">
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>预订人数</label>
+              <input required md-no-asterisk name="prices.count" ng-model="price.count">
+            </md-input-container>
+            <md-button type="button" class="md-danger" ng-click="vm.removePriceInfo($index)"><md-icon class="material-icons">delete</md-icon> 删除</md-button>
+          </div>
+          <md-button type="button" class="md-primary" ng-click="vm.addPriceInfo()"><md-icon class="material-icons">add</md-icon> 添加</md-button>
+        </fieldset>
+
+        <md-button type="submit" class="md-raised md-primary">{{vm.item._id ? '更新' : '创建'}}</md-button>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

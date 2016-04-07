@@ -1,0 +1,95 @@
+.price-info {
+    border:1px solid #ddd;
+    margin:32px 16px 16px 16px;
+    padding: 32px 16px 0 16px;
+    position: relative;
+
+    lagend {
+        position: absolute;
+        top: -8px;
+        font-size: 12px;
+        background: #fff;
+        padding: 0 4px;
+        color: #777;
+    }
+
+    md-input-container {
+        margin: 0;
+    }
+}
+
+.price {
+    &:before {
+        content: "￥";
+        font-size: 12px;
+        padding-right: 8px;
+    }
+    font-size: 20px;
+    color: #080;
+}
+
+.sales-progress {
+    height: 56px;
+    overflow: hidden;
+    .price-info {
+        list-style: none;
+        padding: 0;
+        position: relative;
+        margin: 0 32px;
+        left: -16px;
+        border: 0;
+        height: 24px;
+        li {
+            font-size: 12px;
+            position: absolute;
+            top: 0;
+        }
+        .material-icons {
+            font-size: 12px;
+            position: relative;
+            top: -2px;
+        }
+    }
+    .sales-progressbar {
+        height: 16px;
+        margin: 0 16px;
+        background: #FCE4EC;
+        color: #fff;
+        position: relative;
+        .sales-progressbar-indicator {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 16px;
+            background: #FF4081;
+        }
+        .sales-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            font-size: 10px;
+            padding: 2px 4px;
+        }
+    }
+}
+
+.md-subhead > div {
+    margin: 4px 0;
+}
+
+.md-headline {
+    font-size: 20px !important;
+}
+
+.countdown {
+    margin: 8px 16px 0 16px;
+    color: #777;
+    .material-icons {
+        font-size: 20px;
+        padding-right: 8px;
+    }
+    .time {
+        margin-left: 12px;
+    }
+}

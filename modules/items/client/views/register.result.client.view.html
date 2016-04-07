@@ -1,0 +1,36 @@
+<h1 style="margin:12px">我参与的活动</h1>
+<md-card ng-cloak flex-gt-sm="50" flex="100">
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{vm.item.name}}</span>
+      <span class="md-subhead">
+        <div></div>
+        <div class="price">{{vm.item.prices[0].amount | number: 2}}</div>
+        <div style="font-size:13px;">活动日期：{{vm.item.startTime | date: 'M月dd日'}} ~ {{vm.item.endTime | date:'M月dd日'}}</div>
+      </span>
+    </md-card-title-text>
+    <md-card-title-media>
+      <div class="md-media-md card-media">
+        <img src="{{vm.item.img}}">
+      </div>
+    </md-card-title-media>
+  </md-card-title>
+  <md-content>
+    <div class="sales-progress">
+      <ul class="price-info">
+        <li ng-repeat="price in vm.item.prices" layout="column" layout-align="start start" style="{{price.position}}">
+          <div>￥{{price.amount}}</div>
+          <div class="material-icons" flex>keyboard_arrow_down</div>
+        </li>
+      </ul>
+      <div class="sales-progressbar">
+        <div class="sales-info">参与人数：{{vm.item.sales}}</div>
+        <div class="sales-progressbar-indicator"></div>
+      </div>
+    </div>
+    <div class="countdown" style="margin-bottom:12px;">
+      <md-icon class="material-icons">schedule</md-icon><span>剩余时间</span>
+      <span class="time">{{vm.item.timeLeft}}</span>
+    </div>
+  </md-content>
+</md-card>
