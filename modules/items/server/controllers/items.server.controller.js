@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var path = require('path'),
+    config = require(__config),
     mongoose = require('mongoose'),
     Item = mongoose.model('Item'),
     Customer = mongoose.model('Customer'),
@@ -81,7 +82,7 @@ exports.delete = function(req, res) {
 /**
  * List of Items
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Item.find().sort('-created').populate('user', 'displayName').lean().exec(function(err, items) {
 		if (err) {
 			return res.status(400).send({
@@ -130,7 +131,7 @@ exports.itemByID = function(req, res, next, id) {
 
 
 exports.upload = function(req, res) {
-	res.json({path: req.files.file.path.replace('/home/rexhouy/tmp/uploads/', 'http://upload.localhost/')});
+	res.json({path: req.files.file.path.replace(config.upload_path, config.upload_url)});
 };
 
 var saveRegisterInfo = function(req, res) {
@@ -152,10 +153,10 @@ var saveRegisterInfo = function(req, res) {
 };
 
 exports.register = function(req, res) {
-	// if (req.code != req.session.code) {
-	// 	res.json({succeed: false, message: "手机验证码错误"});
-	// 	return;
-	// }
+	if (req.code != req.session.code) {
+		res.json({succeed: false, message: "手机验证码错误"});
+		return;
+	}
 	Customer.find({tel: req.session.tel}, function (err, customer) {
 		if (customer.length > 0) {
 			req.session.customer = customer;
@@ -176,13 +177,6 @@ exports.captcha = function(req, res) {
 };
 
 // Send sms messages
-var HOST = 'app.cloopen.com',
-    PORT = '8883',
-    ACCOUNT_ID = '8a48b5514e3e5862014e4d8dbcfd0e32',
-    URL = '/2013-12-26/Accounts/'+ACCOUNT_ID+'/SMS/TemplateSMS',
-    AUTH_TOKEN = 'aab4e3de8705464a867248fdd23fa42e',
-    APP_ID = 'aaf98f894e3e5b81014e4d8ffb3a0f41',
-    TEMPLATE_ID = '39993';
 var timeStamp = function() {
         var moment = require('moment');
         return moment().format('YYYYMMDDHHmmss');
@@ -190,11 +184,11 @@ var timeStamp = function() {
 
 var sigParameter = function(timestamp) {
         var crypto = require('crypto');
-        return crypto.createHash('md5').update(ACCOUNT_ID + AUTH_TOKEN + timestamp).digest("hex");
+        return crypto.createHash('md5').update(config.sms_account_id + config.auth_token + timestamp).digest("hex");
 };
 
 var authorization = function(timestamp) {
-        return new Buffer(ACCOUNT_ID + ':' + timestamp).toString('base64');
+        return new Buffer(config.sms_account_id + ':' + timestamp).toString('base64');
 };
 
 var sendRequest = function(path, data, timestamp) {
@@ -203,8 +197,8 @@ var sendRequest = function(path, data, timestamp) {
         data = JSON.stringify(data);
 
         var req = https.request({
-                host: HOST,
-                port: PORT,
+                host: config.sms_host,
+                port: config.sms_port,
                 path: path,
                 method: 'POST',
                 headers: {
@@ -232,17 +226,17 @@ exports.sms = function(req, res) {
 		res.json({succeed: false, message: "验证码错误！"});
 		return;
 	}
-	// var time = timeStamp();
-	// var path = URL + "?sig="+sigParameter(time);
+	var time = timeStamp();
+	var path = config.sms_url + "?sig="+sigParameter(time);
 	req.session.code = randomCode();
 	req.session.tel = req.query.tel;
 
-	// sendRequest(path, {
-	// 	"to": req.query.tel,
-	// 	"appId": APP_ID,
-	// 	"templateId": TEMPLATE_ID,
-	// 	"datas": [req.session.code]
-	// }, time);
+	sendRequest(path, {
+		"to": req.query.tel,
+		"appId": config.sms_app_id,
+		"templateId": config.sms_template_id,
+		"datas": [req.session.code]
+	}, time);
 	res.json({succeed: true});
 };
 

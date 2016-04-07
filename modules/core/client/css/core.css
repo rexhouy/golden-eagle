@@ -1,6 +1,11 @@
 * {
     font-family: 'Roboto', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
 }
+
+body {
+    background: #eee;
+    padding-bottom: 16px;
+}
 .undecorated-link:hover {
     text-decoration: none;
 }

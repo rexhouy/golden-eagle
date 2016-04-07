@@ -62,5 +62,7 @@ module.exports = {
                                 pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
                         }
                 }
-        }
+        },
+        upload_path: '/home/admin/uploads/images',
+        upload_url: 'http://uploads.tenhs.com/'
 };

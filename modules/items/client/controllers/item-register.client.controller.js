@@ -14,7 +14,7 @@
                 vm.error = null;
                 vm.form = {};
                 vm.customer = {};
-                vm.getCodeText = "获取手机验证码";
+                vm.getCodeText = "获取验证码";
 
                 vm.register = function(isValid) {
                         if (!isValid) {
@@ -35,12 +35,12 @@
                         return false;
                 };
 
-                var isCooldown = false;
+                vm.isCooldown = false;
                 var countDownTimmer = function(cooldown) {
                         return function() {
                                 if (cooldown == 0) {
-                                        vm.getCodeText = "获取手机验证码";
-                                        isCooldown = false;
+                                        vm.getCodeText = "获取验证码";
+                                        vm.isCooldown = false;
                                 } else {
                                         vm.getCodeText = "已发送("+cooldown+")";
 
@@ -50,11 +50,11 @@
                 };
 
                 vm.getCode = function() {
-                        if (isCooldown) {
+                        if (vm.isCooldown) {
                                 return;
                         }
                         if (vm.form.registerForm.tel.$valid && vm.customer.captcha && vm.customer.captcha.length == 6) {
-                                isCooldown = true;
+                                vm.isCooldown = true;
                                 $http({
                                         method: 'GET',
                                         url: '/api/item/send_code',
@@ -64,10 +64,10 @@
                                                 countDownTimmer(60)();
                                         } else {
                                                 alert(response.data.message);
-                                                isCooldown = false;
+                                                vm.isCooldown = false;
                                         }
                                 }, function errorCallback(response) {
-                                        isCooldown = false;
+                                        vm.isCooldown = false;
                                 });
                         } else {
                                 $scope.$broadcast('show-errors-check-validity', 'vm.form.registerForm');

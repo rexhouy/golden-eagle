@@ -71,6 +71,13 @@
   .countdown .time {
     margin-left: 12px; }
 
+.inline-items {
+  display: table;
+  width: 100%;
+  margin-bottom: 12px; }
+  .inline-items .inline-item {
+    display: table-cell; }
+
 /* .card { */
 /*     margin: 8px; */
 /*     background: #fff; */

@@ -1,10 +1,13 @@
-<div style="background: #f1f1f1;">
+<div>
+  <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="vm.initialized">
+    <md-progress-circular class="md-accent md-hue-3" md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+  </div>
   <md-card ng-cloak ng-repeat="item in vm.items">
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{item.name}}</span>
         <span class="md-subhead">
-          <div class="price"><small style="font-size: 12px;padding-right: 8px;"></small>{{item.prices[0].amount | number: 2}}</div>
+          <div class="price"><small style="font-size: 12px;padding-right: 8px;">￥</small>{{item.prices[0].amount | number: 2}}</div>
           <div style="font-size:13px;">活动日期：{{item.startTime | date: 'M月dd日'}} ~ {{item.endTime | date:'M月dd日'}}</div>
         </span>
       </md-card-title-text>
@@ -19,7 +22,7 @@
         <ul class="price-info">
           <li ng-repeat="price in item.prices" layout="column" layout-align="start start" style="{{price.position}}">
             <div>￥{{price.amount}}</div>
-            <div class="material-icons" flex>keyboard_arrow_down</div>
+            <div class="material-icons">keyboard_arrow_down</div>
           </li>
         </ul>
         <div class="sales-progressbar">
@@ -27,14 +30,16 @@
           <div class="sales-progressbar-indicator" style="width:{{item.progress}}"></div>
         </div>
       </div>
-      <div class="countdown">
-        <md-icon class="material-icons">schedule</md-icon><span>剩余时间</span>
-        <span class="time">{{item.timeLeft}}</span>
-      </div>
+      <!-- <div class="countdown"> -->
+      <!--   <md-icon class="material-icons">schedule</md-icon><span>剩余时间</span> -->
+      <!--   <span class="time">{{item.timeLeft}}</span> -->
+      <!-- </div> -->
     </md-content>
     <md-card-actions layout="row" layout-align="end center">
       <!-- <md-button data-ui-sref="items.edit({itemId: item._id})">查看规则</md-button> -->
-      <md-button ng-href="/items/{{item._id}}/register">我要参与</md-button>
+      <md-button class="md-primary" ng-href="/items/{{item._id}}/register">
+        <md-icon class="material-icons" style="font-size:18px;">add_shopping_cart</md-icon>我要参与
+      </md-button>
     </md-card-actions>
   </md-card>
 </div>

@@ -35,8 +35,8 @@
                 };
 
                 vm.items = ItemsService.query(function() {
-                        countdownTimmer();
+                        // countdownTimmer();
+                        vm.initialized = true;
                 });
-
         }
 })();

@@ -44,9 +44,8 @@
                 vm.edit = edit;
                 vm.save = save;
 
-
-                vm.item.startTime = new Date(vm.item.startTime);
-                vm.item.endTime = new Date(vm.item.endTime);
+                vm.item.startTime = vm.item.startTime == null ? new Date() : new Date(vm.item.startTime);
+                vm.item.endTime = vm.item.endTime == null ? new Date() : new Date(vm.item.endTime);
                 vm.item.prices = vm.item.prices || [];
                 if (vm.item.length == 0) {
                         vm.item.prices.push({amount: null, count: null});

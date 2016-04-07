@@ -9,6 +9,8 @@ var _ = require('lodash'),
   fs = require('fs'),
   path = require('path');
 
+global.__config = __dirname + '/config';
+
 /**
  * Get files by glob patterns
  */
