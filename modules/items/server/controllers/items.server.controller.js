@@ -153,7 +153,7 @@ var saveRegisterInfo = function(req, res) {
 };
 
 exports.register = function(req, res) {
-	if (req.code != req.session.code) {
+	if (req.body.code != req.session.code) {
 		res.json({succeed: false, message: "手机验证码错误"});
 		return;
 	}
@@ -184,10 +184,12 @@ var timeStamp = function() {
 
 var sigParameter = function(timestamp) {
         var crypto = require('crypto');
-        return crypto.createHash('md5').update(config.sms_account_id + config.auth_token + timestamp).digest("hex");
+	console.log(config.sms_account_id + config.sms_auth_token);
+        return crypto.createHash('md5').update(config.sms_account_id + config.sms_auth_token + timestamp).digest("hex");
 };
 
 var authorization = function(timestamp) {
+	console.log(config.sms_account_id);
         return new Buffer(config.sms_account_id + ':' + timestamp).toString('base64');
 };
 

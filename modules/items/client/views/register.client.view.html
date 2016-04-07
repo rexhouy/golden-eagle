@@ -3,7 +3,7 @@
   <form name="vm.form.registerForm" ng-submit="vm.register(vm.form.registerForm.$valid)">
     <md-input-container md-no-float class="md-block">
       <label>手机号</label>
-      <input ng-model="vm.customer.tel" name="tel" type="tel" ng-pattern="/^([0-9]{11})$/" required>
+      <input ng-model="vm.customer.tel" name="tel" type="tel" ng-pattern="/^([0-9]{11})$/" required autocomplete="off">
       <div ng-messages="vm.form.registerForm.tel.$error">
         <div ng-message="required">请输入手机号。</div>
         <div ng-message="pattern">手机号格式不正确。</div>
@@ -12,7 +12,7 @@
     <div class="md-block inline-items">
       <md-input-container class="inline-item">
         <label>验证码</label>
-        <input ng-model="vm.customer.captcha" name="captcha" required md-no-asterisk>
+        <input ng-model="vm.customer.captcha" name="captcha" required md-no-asterisk autocomplete="off">
         <div ng-messages="vm.form.registerForm.captcha.$error">
           <div ng-message="required">请输入右侧图形验证码。</div>
         </div>
@@ -22,7 +22,7 @@
     <div class="md-block inline-items">
       <md-input-container class="inline-item">
         <label>手机验证码</label>
-        <input ng-model="vm.customer.code" name="captcha" type="text" required>
+        <input ng-model="vm.customer.code" name="captcha" type="text" required autocomplete="off">
         <div ng-messages="vm.form.registerForm.captcha.$error">
           <div ng-message="required">请输入手机短信验证码。</div>
         </div>
