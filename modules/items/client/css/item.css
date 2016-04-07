@@ -71,4 +71,27 @@
   .countdown .time {
     margin-left: 12px; }
 
+.card {
+  margin: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }
+  .card .card-title {
+    padding: 24px 16px 16px 16px;
+    display: table; }
+    .card .card-title .title-text {
+      vertical-align: top;
+      display: table-cell;
+      width: 100%; }
+    .card .card-title .card-title-media {
+      vertical-align: top;
+      display: table-cell;
+      position: relative;
+      top: -8px;
+      width: 112px; }
+      .card .card-title .card-title-media img {
+        width: 112px;
+        height: 112px; }
+  .card .card-actions {
+    margin: 8px; }
+
 /*# sourceMappingURL=item.css.map */
