@@ -37,13 +37,10 @@
                                 }
                         })
                         .state('items.customer', {
-                                url: '/register/result/:customerId',
+                                url: '/register/result',
                                 templateUrl: 'modules/items/views/register.result.client.view.html',
                                 controller: 'CustomersController',
                                 controllerAs: 'vm',
-                                resolve: {
-                                        customerResolve: getCustomer
-                                },
                                 data:{
                                         pageTitle: '我的参与信息'
                                 }

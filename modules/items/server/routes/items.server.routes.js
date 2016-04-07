@@ -29,7 +29,7 @@ module.exports = function(app) {
         app.route('/api/item/:itemId/register').all(itemsPolicy.isAllowed)
                 .post(items.register);
 
-        app.route('/api/customers/:customerId').all(itemsPolicy.isAllowed)
+        app.route('/api/customer').all(itemsPolicy.isAllowed)
                 .get(items.customer);
 
         // Finish by binding the Item middleware

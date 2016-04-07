@@ -51,7 +51,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
                 history.push($location.$$path);
         });
         $rootScope.back = function () {
-                var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+                var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/items";
                 $location.path(prevUrl);
         };
         $rootScope.isHome = function() {

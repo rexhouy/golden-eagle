@@ -16,7 +16,8 @@ module.exports = {
                                 'public/lib/angular-ui-utils/ui-utils.js',
                                 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                                 'public/lib/angular-file-upload/angular-file-upload.js',
-                                'public/lib/angular-messages/angular-messages.js'
+                                'public/lib/angular-messages/angular-messages.js',
+                                'public/lib/ngstorage/ngStorage.js'
                         ],
                         tests: ['public/lib/angular-mocks/angular-mocks.js']
                 },

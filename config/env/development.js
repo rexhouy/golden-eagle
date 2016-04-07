@@ -65,5 +65,5 @@ module.exports = {
                         }
                 }
         },
-        livereload: true
+        livereload: false
 };

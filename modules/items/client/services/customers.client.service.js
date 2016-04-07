@@ -6,16 +6,23 @@
 		.module('items')
 		.factory('CustomersService', CustomersService);
 
-	CustomersService.$inject = ['$resource'];
+	CustomersService.$inject = ['$http', '$q'];
 
-	function CustomersService($resource) {
-		return $resource('api/customers/:customerId', {
-			customerId: '@_id'
-		}, {
-			update: {
-				method: 'PUT'
-			}
-		});
+	function CustomersService($http, $q) {
+		var self = this;
+
+		self.find = function() {
+			var deferred = $q.defer();
+			$http({
+				method: 'GET',
+				url: '/api/customer'
+			}).then(function successCallback(response) {
+				deferred.resolve(response.data);
+			});
+			return deferred.promise;
+		};
+
+		return self;
 	}
 
 

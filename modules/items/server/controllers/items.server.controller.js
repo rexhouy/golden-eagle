@@ -145,6 +145,7 @@ var saveRegisterInfo = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			req.session.customer = customer;
 			res.json({succeed: true, customer: customer});
 		}
 	});
@@ -157,6 +158,7 @@ exports.register = function(req, res) {
 	// }
 	Customer.find({tel: req.session.tel}, function (err, customer) {
 		if (customer.length > 0) {
+			req.session.customer = customer;
 			res.json({succeed: false, message: "每个用户只能参与一次。"});
 		} else {
 			saveRegisterInfo(req, res);
@@ -246,21 +248,15 @@ exports.sms = function(req, res) {
 
 
 exports.customer = function(req, res) {
-	console.log(req.params.customerId);
-	var id = req.params.customerId;
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).send({
-			message: 'Customer is invalid'
-		});
-	}
-
-	Customer.findById(id).exec(function (err, customer) {
-		if (err || !customer) {
-			res.status(404).send({
-				message: 'No Customer with that identifier has been found'
-			});
-		} else {
-			res.json(customer);
-		}
-	});
+	res.json(req.session.customer);
+	// var id = req.session.customer._id;
+	// Customer.findById(id).exec(function (err, customer) {
+	// 	if (err || !customer) {
+	// 		res.status(404).send({
+	// 			message: 'No Customer with that identifier has been found'
+	// 		});
+	// 	} else {
+	// 		res.json(customer);
+	// 	}
+	// });
 };

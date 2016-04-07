@@ -5,9 +5,9 @@
                 .module('items')
                 .controller('CustomersController', CustomersController);
 
-        CustomersController.$inject = ['customerResolve', 'ItemsService', '$timeout'];
+        CustomersController.$inject = ['CustomersService', 'ItemsService', '$timeout'];
 
-        function CustomersController(customer, ItemsService, $timeout) {
+        function CustomersController(CustomersService, ItemsService, $timeout) {
                 var vm = this;
 
                 var toReadable = function(time) {
@@ -32,16 +32,29 @@
                         $timeout(countdownTimmer, 1000);
                 };
 
-                vm.customer = customer;
-                ItemsService.get({itemId: customer.item}, function(item) {
+                CustomersService.find().then(function(customer) {
+                        vm.customer = customer;
+
+                        var item = customer.item;
                         var size = 100 / (item.prices.length - 1);
+                        var maxCount = 0;
                         item.prices.forEach(function(price, index) {
                                 price.position = "left:" + size * index + "%;";
+                                if (price.count > maxCount) maxCount = price.count;
                         });
+                        var progress = item.sales /  maxCount * 100;
+                        progress = progress > 100 ? 100 : progress;
+                        item.progress = progress + "%";
 
                         vm.item = item;
 
                         countdownTimmer();
                 });
+                // ItemsService.get({itemId: customer.item}, function(item) {
+
+                //         vm.item = item;
+
+                //         countdownTimmer();
+                // });
         }
 })();

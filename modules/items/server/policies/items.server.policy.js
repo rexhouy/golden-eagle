@@ -42,7 +42,7 @@ exports.invokeRolesPolicies = function () {
                         resources: '/api/item/:itemId/register',
                         permissions: ['post']
                 }, {
-                        resources: '/api/customers/:customerId',
+                        resources: '/api/customer',
                         permissions: ['get']
                 }]
         }, {
@@ -63,7 +63,7 @@ exports.invokeRolesPolicies = function () {
                         resources: '/api/item/:itemId/register',
                         permissions: ['post']
                 }, {
-                        resources: '/api/customers/:customerId',
+                        resources: '/api/customer',
                         permissions: ['get']
                 }]
         }]);

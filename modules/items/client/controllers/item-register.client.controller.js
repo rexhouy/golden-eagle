@@ -27,10 +27,7 @@
                                 data: vm.customer
                         }).then(function successCallback(response) {
                                 if (response.data.succeed) {
-                                        $state.go('items.register.result', {
-                                                customerId: response.data.customer._id
-                                        });
-                                        console.log("........................");
+                                        $state.go('items.customer');
                                 } else {
                                         alert(response.data.message);
                                 }
