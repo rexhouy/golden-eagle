@@ -42,6 +42,7 @@
                                 controller: 'CustomersController',
                                 controllerAs: 'vm',
                                 data:{
+                                        noHistory: true,
                                         pageTitle: '我的参与信息'
                                 }
                         })

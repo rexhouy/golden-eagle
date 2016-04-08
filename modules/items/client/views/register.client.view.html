@@ -1,4 +1,7 @@
-<md-content flex layout-padding ng-cloak>
+<div layout="row" layout-sm="column" layout-align="space-around" ng-hide="vm.initialized">
+  <md-progress-circular class="md-accent md-hue-3" md-mode="indeterminate" md-diameter="70" ng-hide="vm.initialized"></md-progress-circular>
+</div>
+<md-content flex layout-padding ng-cloak ng-show="vm.initialized">
   <span class="md-headline">{{vm.item.name}}</span>
   <form name="vm.form.registerForm" ng-submit="vm.register(vm.form.registerForm.$valid)" novalidate>
     <md-input-container md-no-float class="md-block">
@@ -9,17 +12,17 @@
         <div ng-message="pattern">手机号格式不正确。</div>
       </div>
     </md-input-container>
-    <div class="md-block inline-items">
-      <md-input-container class="inline-item">
-        <label>验证码</label>
-        <input ng-model="vm.customer.captcha" name="captcha" required md-no-asterisk autocomplete="off" ng-pattern="/^\w{6}$/">
-        <div ng-messages="vm.form.registerForm.captcha.$error">
-          <div ng-message="required">请输入右侧图形验证码。</div>
-          <div ng-message="pattern">验证码格式不正确。</div>
-        </div>
-      </md-input-container>
-      <img class="inline-item" src="{{vm.captchaURL}}" ng-click="vm.changeCaptcha()" style="outline: none;">
-    </div>
+    <!-- <div class="md-block inline-items"> -->
+    <!--   <md-input-container class="inline-item"> -->
+    <!--     <label>验证码</label> -->
+    <!--     <input ng-model="vm.customer.captcha" name="captcha" required md-no-asterisk autocomplete="off" ng-pattern="/^\w{6}$/"> -->
+    <!--     <div ng-messages="vm.form.registerForm.captcha.$error"> -->
+    <!--       <div ng-message="required">请输入右侧图形验证码。</div> -->
+    <!--       <div ng-message="pattern">验证码格式不正确。</div> -->
+    <!--     </div> -->
+    <!--   </md-input-container> -->
+    <!--   <img class="inline-item" src="{{vm.captchaURL}}" ng-click="vm.changeCaptcha()" style="outline: none;"> -->
+    <!-- </div> -->
   </form>
   <form name="vm.form.checkForm" ng-submit="vm.register(vm.form.checkForm.$valid)" novalidate>
     <div class="md-block inline-items">

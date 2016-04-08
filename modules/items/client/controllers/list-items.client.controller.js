@@ -43,7 +43,13 @@
 
                 vm.items = ItemsService.query(function() {
                         countdownTimmer();
-                        vm.initialized = true;
                 });
+
+                var count = 0;
+                vm.imageLoaded = function() {
+                        if (++count >= vm.items.length) {
+                                vm.initialized = true;
+                        }
+                };
         }
 })();

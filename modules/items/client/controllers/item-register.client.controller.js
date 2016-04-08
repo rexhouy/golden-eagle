@@ -16,6 +16,17 @@
                 vm.customer = {};
                 vm.getCodeText = "获取验证码";
 
+                $http({
+                        method: 'POST',
+                        url: 'api/item/'+vm.item._id+'/register'
+                }).then(function(response) {
+                        if (response.data.succeed) {
+                                $state.go('items.customer');
+                        } else {
+                                vm.initialized = true;
+                        }
+                });
+
                 vm.register = function(isValid) {
                         if (!isValid) {
                                 return false;
@@ -24,11 +35,12 @@
                                 method: 'POST',
                                 url: '/api/item/'+vm.item._id+'/register',
                                 data: vm.customer
-                        }).then(function successCallback(response) {
+                        }).then(function(response) {
                                 if (!response.data.succeed) {
                                         alert(response.data.message);
+                                } else {
+                                        $state.go('items.customer');
                                 }
-                                $state.go('items.customer');
                         });
                         return false;
                 };

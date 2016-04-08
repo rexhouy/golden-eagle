@@ -3,7 +3,7 @@
     <md-progress-circular class="md-accent md-hue-3" md-mode="indeterminate" md-diameter="70" ng-hide="vm.initialized"></md-progress-circular>
   </div>
   <md-card ng-cloak ng-repeat="item in vm.items">
-    <img ng-src="{{item.img}}" class="md-card-image" alt="{{item.name}}">
+    <img ng-src="{{item.img}}" class="md-card-image" alt="{{item.name}}" imageonload="vm.imageLoaded()">
     <md-content>
       <div class="sales-progress">
         <ul class="price-info">
@@ -13,7 +13,7 @@
           </li>
         </ul>
         <div class="sales-progressbar">
-          <div class="sales-info">参与人数：{{item.sales}}</div>
+          <!-- <div class="sales-info">参与人数：{{item.sales}}</div> -->
           <div class="sales-progressbar-indicator" style="width:{{item.progress}}"></div>
         </div>
       </div>

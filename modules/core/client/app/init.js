@@ -48,6 +48,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
         // Record history back
         var history = [];
         $rootScope.$on('$stateChangeSuccess', function() {
+                if ($state.current.data.noHistory) {
+                        return;
+                }
                 history.push($location.$$path);
         });
         $rootScope.back = function () {
@@ -69,4 +72,17 @@ angular.element(document).ready(function () {
 
         //Then init the app
         angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+});
+
+
+angular.module(ApplicationConfiguration.applicationModuleName).directive('imageonload', function() {
+        return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                        element.bind('load', function() {
+                                //call the function that was passed
+                                scope.$apply(attrs.imageonload);
+                        });
+                }
+        };
 });
