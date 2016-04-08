@@ -11,7 +11,7 @@ var path = require('path'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
-var TEST_MODE = true;
+var TEST_MODE = false;
 
 /**
  * Create a Item
