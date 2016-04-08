@@ -93,12 +93,13 @@ exports.list = function(req, res) {
 				var size = 100 / (item.prices.length - 1);
 				var maxCount = 0;
 				item.prices.forEach(function(price, index) {
-					price.position = "left:" + size * index + "%;";
+					price.position = 'left:' + size * index + '%;';
+					if (price.count <= item.sales) price.position += 'color: #FF4081;font-size:16px;';
 					if (price.amount > maxCount) maxCount = price.count;
 				});
 				var progress = item.sales / maxCount * 100;
 				progress = progress > 100 ? 100 : progress;
-				item.progress = progress + "%";
+				item.progress = progress + '%';
 			});
 			res.json(items);
 		}
@@ -146,26 +147,39 @@ var saveRegisterInfo = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			req.session.customer = customer;
 			res.json({succeed: true, customer: customer});
 		}
 	});
 };
 
+var endDate = function() {
+	var endTime = new Date();
+	endTime.setFullYear(2016);
+	endTime.setMonth(3);
+	endTime.setDate(19);
+	endTime.setHours(0);
+	endTime.setMinutes(0);
+	endTime.setSeconds(0);
+	return endTime;
+};
+
 exports.register = function(req, res) {
+	if (new Date() > endDate()) {
+		res.json({succeed: false, message: '活动已经结束'});
+		return;
+	}
 	if (req.body.code != req.session.code) {
 		res.json({succeed: false, message: '手机验证码错误'});
 		return;
 	}
-	Customer.find({tel: req.session.tel}, function (err, customer) {
-		if (customer.length > 0) {
-			req.session.customer = customer[0];
-			res.json({succeed: false, message: "每个用户只能参与一次。"});
+	req.session.customerTel = req.session.tel;
+	Customer.find({tel: req.session.tel, item: req.item}, function (err, customers) {
+		if (customers.length > 0) {
+			res.json({succeed: false, message: "您已经参与该商品的活动了。"});
 		} else {
 			saveRegisterInfo(req, res);
 		}
 	});
-
 };
 
 exports.captcha = function(req, res) {
@@ -242,9 +256,16 @@ exports.sms = function(req, res) {
 
 
 exports.customer = function(req, res) {
-	if (req.session.customer) {
-		Item.findById(req.session.customer.item, function(err, item) {
-			res.json({customer: req.session.customer, item: item});
+	if (req.session.customerTel) {
+		// Find items ids by tel
+		Customer.find({tel: req.session.customerTel}, function(err, customers) {
+			var ids = customers.map(function(customer) {
+				return customer.item;
+			});
+			// Find items by ids
+			Item.where('_id').in(ids).exec(function(err, items) {
+				res.json({items: items});
+			});
 		});
 	} else {
 		res.json(null);

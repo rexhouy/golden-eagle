@@ -3,20 +3,7 @@
     <md-progress-circular class="md-accent md-hue-3" md-mode="indeterminate" md-diameter="70" ng-hide="vm.initialized"></md-progress-circular>
   </div>
   <md-card ng-cloak ng-repeat="item in vm.items">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">{{item.name}}</span>
-        <span class="md-subhead">
-          <div class="price"><small style="font-size: 12px;padding-right: 8px;">￥</small>{{item.prices[0].amount | number: 2}}</div>
-          <div style="font-size:13px;">活动日期：{{item.startTime | date: 'M月dd日'}} ~ {{item.endTime | date:'M月dd日'}}</div>
-        </span>
-      </md-card-title-text>
-      <md-card-title-media>
-        <div class="md-media-md card-media">
-          <img src="{{item.img}}">
-        </div>
-      </md-card-title-media>
-    </md-card-title>
+    <img ng-src="{{item.img}}" class="md-card-image" alt="{{item.name}}">
     <md-content>
       <div class="sales-progress">
         <ul class="price-info">
@@ -30,15 +17,17 @@
           <div class="sales-progressbar-indicator" style="width:{{item.progress}}"></div>
         </div>
       </div>
-      <div class="countdown">
+      <div class="countdown" ng-show="vm.end" style="text-align:center;margin:12px;">
+        <span class="tiem">活动结束</span>
+      </div>
+      <div class="countdown" ng-hide="vm.end">
         <md-icon class="material-icons">&#xE8B5;</md-icon><span>剩余时间</span>
-        <span class="time">{{item.timeLeft}}</span>
+        <span class="time">{{vm.timeLeft}}</span>
       </div>
     </md-content>
-    <md-card-actions layout="row" layout-align="end center">
-      <!-- <md-button data-ui-sref="items.edit({itemId: item._id})">查看规则</md-button> -->
+    <md-card-actions layout="row" layout-align="end center" ng-hide="vm.end">
       <md-button class="md-primary" ng-href="/items/{{item._id}}/register">
-        <md-icon class="material-icons" style="font-size:18px;">&#xE854;</md-icon>我要参与
+        <md-icon class="material-icons" style="font-size:16px;position:relative;top:3px;">&#xE854;</md-icon>我要参与
       </md-button>
     </md-card-actions>
   </md-card>

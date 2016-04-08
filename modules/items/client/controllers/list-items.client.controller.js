@@ -27,11 +27,18 @@
                 };
 
                 var countdownTimmer = function() {
-                        vm.items.forEach(function(item, index) {
-                                var endTime = new Date(item.endTime);
-                                item.timeLeft = toReadable(endTime - new Date());
-                                $timeout(countdownTimmer, 10000);
-                        });
+                        var endTime = new Date();
+                        endTime.setFullYear(2016);
+                        endTime.setMonth(3);
+                        endTime.setDate(19);
+                        endTime.setHours(0);
+                        endTime.setMinutes(0);
+                        endTime.setSeconds(0);
+                        if (new Date() > endTime) {
+                                vm.end = true;
+                        }
+                        vm.timeLeft = toReadable(endTime - new Date());
+                        $timeout(countdownTimmer, 10000);
                 };
 
                 vm.items = ItemsService.query(function() {

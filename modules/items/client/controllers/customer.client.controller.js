@@ -33,9 +33,17 @@
                 };
 
                 CustomersService.find().then(function(result) {
-                        vm.customer = result.customer;
+                        if (result == null) {
+                                return;
+                        }
+                        var items = result.items;
+                        for (var i = 0; i < items.length; i++) {
+                                items[i] = setItemProgress(items[i]);
+                        }
+                        vm.items = items;
+                });
 
-                        var item = result.item;
+                var setItemProgress = function(item) {
                         var size = 100 / (item.prices.length - 1);
                         var maxCount = 0;
                         item.prices.forEach(function(price, index) {
@@ -45,16 +53,7 @@
                         var progress = item.sales /  maxCount * 100;
                         progress = progress > 100 ? 100 : progress;
                         item.progress = progress + '%';
-
-                        vm.item = item;
-
-                        countdownTimmer();
-                });
-                // ItemsService.get({itemId: customer.item}, function(item) {
-
-                //         vm.item = item;
-
-                //         countdownTimmer();
-                // });
+                        return item;
+                };
         }
 })();
