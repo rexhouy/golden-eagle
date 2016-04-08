@@ -245,14 +245,24 @@ exports.sms = function(req, res) {
 
 exports.customer = function(req, res) {
 	res.json(req.session.customer);
-	// var id = req.session.customer._id;
-	// Customer.findById(id).exec(function (err, customer) {
-	// 	if (err || !customer) {
-	// 		res.status(404).send({
-	// 			message: 'No Customer with that identifier has been found'
-	// 		});
-	// 	} else {
-	// 		res.json(customer);
-	// 	}
-	// });
+};
+
+exports.statistics = function(req, res) {
+	Customer.count(function(err, count) {
+		if (err) {
+			res.json({succeed: false, err: err});
+		} else {
+			res.json({succeed: true, count: count});
+		}
+	});
+};
+
+exports.itemStatistics = function(req, res) {
+	Customer.find({item: req.params.itemId}, function(err, customers) {
+		if (err) {
+			res.json({succeed: false, err: err});
+		} else {
+			res.json({succeed: true, customers: customers});
+		}
+	});
 };

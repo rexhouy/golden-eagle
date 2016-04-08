@@ -1,0 +1,30 @@
+<md-card ng-cloak>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{vm.item.name}}</span>
+      <span class="md-subhead">
+        <div class="price"><small style="font-size: 12px;padding-right: 8px;">￥</small>{{vm.item.prices[0].amount | number: 2}}</div>
+        <div style="font-size:13px;">活动日期：{{vm.item.startTime | date: 'M月dd日'}} ~ {{vm.item.endTime | date:'M月dd日'}}</div>
+      </span>
+    </md-card-title-text>
+    <md-card-title-media>
+      <div class="md-media-md card-media">
+        <img src="{{vm.item.img}}">
+      </div>
+    </md-card-title-media>
+  </md-card-title>
+</md-card>
+
+<md-chips ng-if="vm.item.sales">
+  <md-chip style="font-size:14px;">参与人数：{{vm.item.sales}}人</md-chip>
+</md-chips>
+
+<md-list ng-cloak style="background: #fff;">
+  <md-list-item class="md-2-line" ng-repeat="customer in vm.customers">
+    <md-icon class="material-icons md-avatar-icon">&#xE853;</md-icon>
+    <div class="md-list-item-text">
+      <h3>{{customer.tel}}</h3>
+      <p>参与时间：{{customer.created | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+    </div>
+  </md-list-item>
+</md-list>

@@ -1,0 +1,14 @@
+<h1 style="margin:12px">使用情况</h1>
+<md-chips ng-if="vm.total">
+  <md-chip style="font-size:14px;">参与总人数：{{vm.total}}人</md-chip>
+</md-chips>
+<md-list ng-cloak style="background: #fff;">
+  <md-list-item class="md-2-line" ng-repeat="item in vm.items" ng-href="/items/{{item._id}}/statistics">
+    <img ng-src="{{item.img}}" class="md-avatar" alt="{{item.name}}" />
+    <div class="md-list-item-text">
+      <h3>{{item.name}}</h3>
+      <p>使用人数{{item.sales}}</p>
+    </div>
+    <md-icon ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary material-icons">&#xE315;</md-icon>
+  </md-list-item>
+</md-list>

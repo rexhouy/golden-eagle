@@ -18,7 +18,6 @@
 
                 vm.register = function(isValid) {
                         if (!isValid) {
-                                $scope.$broadcast('show-errors-check-validity', 'vm.form.registerForm');
                                 return false;
                         }
                         $http({
@@ -53,7 +52,7 @@
                         if (vm.isCooldown) {
                                 return;
                         }
-                        if (vm.form.registerForm.tel.$valid && vm.customer.captcha && vm.customer.captcha.length == 6) {
+                        if (vm.form.registerForm.$valid) {
                                 vm.isCooldown = true;
                                 $http({
                                         method: 'GET',
@@ -70,7 +69,8 @@
                                         vm.isCooldown = false;
                                 });
                         } else {
-                                $scope.$broadcast('show-errors-check-validity', 'vm.form.registerForm');
+                                vm.form.registerForm.$setSubmitted();
+                                return;
                         }
                 };
 

@@ -12,6 +12,13 @@ module.exports = function(app) {
                 .get(items.list)
                 .post(items.create);
 
+        app.route('/api/items/statistics').all(itemsPolicy.isAllowed)
+                .get(items.statistics);
+
+        app.route('/api/items/:itemId/statistics').all(itemsPolicy.isAllowed)
+                .get(items.itemStatistics);
+
+
         app.route('/api/items/:itemId').all(itemsPolicy.isAllowed)
                 .get(items.read)
                 .put(items.update)

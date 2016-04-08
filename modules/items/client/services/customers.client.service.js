@@ -22,6 +22,17 @@
 			return deferred.promise;
 		};
 
+		self.findByItem = function(itemId) {
+			var deferred = $q.defer();
+			$http({
+				method: 'GET',
+				url: '/api/items/'+itemId+'/statistics'
+			}).then(function successCallback(response) {
+				deferred.resolve(response.data);
+			});
+			return deferred.promise;
+		};
+
 		return self;
 	}
 

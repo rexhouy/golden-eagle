@@ -70,6 +70,29 @@
                                         pageTitle: 'Item {{ itemResolve.name }}'
                                 }
                         })
+                        .state('items.statistics', {
+                                url: '/statistics',
+                                templateUrl: 'modules/items/views/statistics.client.view.html',
+                                controller: 'StatisticsController',
+                                controllerAs: 'vm',
+                                data:{
+                                        roles: ['user', 'admin'],
+                                        pageTitle: '统计结果'
+                                }
+                        })
+                        .state('items.itemStatistics', {
+                                url: '/:itemId/statistics',
+                                templateUrl: 'modules/items/views/item.statistics.client.view.html',
+                                controller: 'ItemStatisticsController',
+                                controllerAs: 'vm',
+                                resolve: {
+                                        itemResolve: getItem
+                                },
+                                data:{
+                                        roles: ['user', 'admin'],
+                                        pageTitle: '统计结果'
+                                }
+                        })
                         .state('items.view', {
                                 url: '/:itemId',
                                 templateUrl: 'modules/items/views/view-item.client.view.html',
