@@ -22,7 +22,7 @@
         <ul class="price-info">
           <li ng-repeat="price in item.prices" layout="column" layout-align="start start" style="{{price.position}}">
             <div>￥{{price.amount}}</div>
-            <div class="material-icons">keyboard_arrow_down</div>
+            <div class="material-icons">&#xE313;</div>
           </li>
         </ul>
         <div class="sales-progressbar">
@@ -31,14 +31,14 @@
         </div>
       </div>
       <!-- <div class="countdown"> -->
-      <!--   <md-icon class="material-icons">schedule</md-icon><span>剩余时间</span> -->
+      <!--   <md-icon class="material-icons">&#xE8B5;</md-icon><span>剩余时间</span> -->
       <!--   <span class="time">{{item.timeLeft}}</span> -->
       <!-- </div> -->
     </md-content>
     <md-card-actions layout="row" layout-align="end center">
       <!-- <md-button data-ui-sref="items.edit({itemId: item._id})">查看规则</md-button> -->
       <md-button class="md-primary" ng-href="/items/{{item._id}}/register">
-        <md-icon class="material-icons" style="font-size:18px;">add_shopping_cart</md-icon>我要参与
+        <md-icon class="material-icons" style="font-size:18px;">&#xE854;</md-icon>我要参与
       </md-button>
     </md-card-actions>
   </md-card>

@@ -47,9 +47,9 @@
               <label>预订人数</label>
               <input required md-no-asterisk name="prices.count" ng-model="price.count">
             </md-input-container>
-            <md-button type="button" class="md-danger" ng-click="vm.removePriceInfo($index)"><md-icon class="material-icons">delete</md-icon> 删除</md-button>
+            <md-button type="button" class="md-danger" ng-click="vm.removePriceInfo($index)"><md-icon class="material-icons">&#xE872;</md-icon> 删除</md-button>
           </div>
-          <md-button type="button" class="md-primary" ng-click="vm.addPriceInfo()"><md-icon class="material-icons">add</md-icon> 添加</md-button>
+          <md-button type="button" class="md-primary" ng-click="vm.addPriceInfo()"><md-icon class="material-icons">&#xE145;</md-icon> 添加</md-button>
         </fieldset>
 
         <md-button type="submit" class="md-raised md-primary">{{vm.item._id ? '更新' : '创建'}}</md-button>
