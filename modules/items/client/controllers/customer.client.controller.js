@@ -32,19 +32,19 @@
                         $timeout(countdownTimmer, 1000);
                 };
 
-                CustomersService.find().then(function(customer) {
-                        vm.customer = customer;
+                CustomersService.find().then(function(result) {
+                        vm.customer = result.customer;
 
-                        var item = customer.item;
+                        var item = result.item;
                         var size = 100 / (item.prices.length - 1);
                         var maxCount = 0;
                         item.prices.forEach(function(price, index) {
-                                price.position = "left:" + size * index + "%;";
+                                price.position = 'left:' + size * index + '%;';
                                 if (price.count > maxCount) maxCount = price.count;
                         });
                         var progress = item.sales /  maxCount * 100;
                         progress = progress > 100 ? 100 : progress;
-                        item.progress = progress + "%";
+                        item.progress = progress + '%';
 
                         vm.item = item;
 

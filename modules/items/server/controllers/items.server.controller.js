@@ -154,12 +154,12 @@ var saveRegisterInfo = function(req, res) {
 
 exports.register = function(req, res) {
 	if (req.body.code != req.session.code) {
-		res.json({succeed: false, message: "手机验证码错误"});
+		res.json({succeed: false, message: '手机验证码错误'});
 		return;
 	}
 	Customer.find({tel: req.session.tel}, function (err, customer) {
 		if (customer.length > 0) {
-			req.session.customer = customer;
+			req.session.customer = customer[0];
 			res.json({succeed: false, message: "每个用户只能参与一次。"});
 		} else {
 			saveRegisterInfo(req, res);
@@ -184,12 +184,10 @@ var timeStamp = function() {
 
 var sigParameter = function(timestamp) {
         var crypto = require('crypto');
-	console.log(config.sms_account_id + config.sms_auth_token);
         return crypto.createHash('md5').update(config.sms_account_id + config.sms_auth_token + timestamp).digest("hex");
 };
 
 var authorization = function(timestamp) {
-	console.log(config.sms_account_id);
         return new Buffer(config.sms_account_id + ':' + timestamp).toString('base64');
 };
 
@@ -244,7 +242,13 @@ exports.sms = function(req, res) {
 
 
 exports.customer = function(req, res) {
-	res.json(req.session.customer);
+	if (req.session.customer) {
+		Item.findById(req.session.customer.item, function(err, item) {
+			res.json({customer: req.session.customer, item: item});
+		});
+	} else {
+		res.json(null);
+	}
 };
 
 exports.statistics = function(req, res) {
