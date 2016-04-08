@@ -25,11 +25,10 @@
                                 url: '/api/item/'+vm.item._id+'/register',
                                 data: vm.customer
                         }).then(function successCallback(response) {
-                                if (response.data.succeed) {
-                                        $state.go('items.customer');
-                                } else {
+                                if (!response.data.succeed) {
                                         alert(response.data.message);
                                 }
+                                $state.go('items.customer');
                         });
                         return false;
                 };
