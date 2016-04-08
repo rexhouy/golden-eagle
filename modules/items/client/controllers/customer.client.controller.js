@@ -5,10 +5,19 @@
                 .module('items')
                 .controller('CustomersController', CustomersController);
 
-        CustomersController.$inject = ['CustomersService', 'ItemsService', '$timeout'];
+        CustomersController.$inject = ['$scope', 'CustomersService', 'ItemsService', '$timeout', '$stateParams', '$mdToast'];
 
-        function CustomersController(CustomersService, ItemsService, $timeout) {
+        function CustomersController($scope, CustomersService, ItemsService, $timeout, $stateParams, $mdToast) {
                 var vm = this;
+
+                if ($stateParams.message) {
+                        var toast = $mdToast.simple()
+                                    .textContent($stateParams.message)
+                                    .action('OK')
+                                    .position("top")
+                                    .highlightAction(false);
+                        $mdToast.show(toast);
+                }
 
                 var toReadable = function(time) {
                         var day = time / 86400000; // Days

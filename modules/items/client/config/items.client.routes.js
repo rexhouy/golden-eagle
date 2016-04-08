@@ -39,6 +39,7 @@
                         .state('items.customer', {
                                 url: '/register/result',
                                 templateUrl: 'modules/items/views/register.result.client.view.html',
+                                params: {message: null},
                                 controller: 'CustomersController',
                                 controllerAs: 'vm',
                                 data:{

@@ -21,7 +21,7 @@
                         url: 'api/item/'+vm.item._id+'/register'
                 }).then(function(response) {
                         if (response.data.succeed) {
-                                $state.go('items.customer');
+                                $state.go('items.customer', {message: response.data.message});
                         } else {
                                 vm.initialized = true;
                         }
@@ -39,7 +39,7 @@
                                 if (!response.data.succeed) {
                                         alert(response.data.message);
                                 } else {
-                                        $state.go('items.customer');
+                                        $state.go('items.customer', {message: response.data.message});
                                 }
                         });
                         return false;

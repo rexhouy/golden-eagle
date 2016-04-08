@@ -1,4 +1,11 @@
-<h1 style="margin:12px">我参与的活动</h1>
+<md-toast md-theme="default" class="md-toast-open-top" class="ng-scope md-default-theme md-top md-left" ng-show="vm.message">
+  <div class="md-toast-content">
+    <span flex="" role="alert" aria-relevant="all" aria-atomic="true" class="ng-binding flex">{{vm.message}}</span>
+      <md-button ng-click="vm.message = null">关闭</md-button>
+  </div>
+</md-toast>
+
+<h1 style="margin:12px">我参与的众筹</h1>
 <md-card ng-cloak ng-repeat="item in vm.items">
   <md-card-title>
     <md-card-title-text>

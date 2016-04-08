@@ -11,6 +11,8 @@ var path = require('path'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
+var TEST_MODE = true;
+
 /**
  * Create a Item
  */
@@ -147,7 +149,7 @@ var saveRegisterInfo = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json({succeed: true, customer: customer});
+			res.json({succeed: true, customer: customer, message: '参与众筹成功。'});
 		}
 	});
 };
@@ -173,14 +175,13 @@ exports.register = function(req, res) {
 			res.json({succeed: false});
 			return;
 		}
-		if (req.body.code != req.session.code) {
+		if (!TEST_MODE && req.body.code != req.session.code) {
 			res.json({succeed: false, message: '手机验证码错误'});
 			return;
 		}
 		req.session.customerTel = req.session.tel;
 	}
 	Customer.find({tel: req.session.customerTel, item: req.item}, function (err, customers) {
-		console.log(customers);
 		if (customers.length > 0) {
 			res.json({succeed: true, message: "您已经参与该商品的活动了。"});
 		} else {
@@ -244,7 +245,7 @@ var randomCode = function() {
 
 exports.sms = function(req, res) {
 	if (!req.query.tel) { //  || req.query.captcha != req.session.captcha
-		res.json({succeed: false, message: "验证码错误！"});
+		res.json({succeed: false, message: "手机号错误！"});
 		return;
 	}
 	var time = timeStamp();
@@ -252,12 +253,15 @@ exports.sms = function(req, res) {
 	req.session.code = randomCode();
 	req.session.tel = req.query.tel;
 
-	sendRequest(path, {
-		"to": req.query.tel,
-		"appId": config.sms_app_id,
-		"templateId": config.sms_template_id,
-		"datas": [req.session.code]
-	}, time);
+	if (!TEST_MODE) {
+		sendRequest(path, {
+			"to": req.query.tel,
+			"appId": config.sms_app_id,
+			"templateId": config.sms_template_id,
+			"datas": [req.session.code]
+		}, time);
+	}
+
 	res.json({succeed: true});
 };
 
