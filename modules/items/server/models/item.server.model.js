@@ -17,7 +17,7 @@ var ItemSchema = new Schema({
                 trim: true
         },
         prices: [
-                {count: Number, amount: Number}
+                {count: Number, amount: String}
         ],
         sales: {
                 type: Number,

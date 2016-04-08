@@ -48,7 +48,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
         // Record history back
         var history = [];
         $rootScope.$on('$stateChangeSuccess', function() {
-                if ($state.current.data.noHistory) {
+                if ($state.current.data && $state.current.data.noHistory) {
                         return;
                 }
                 history.push($location.$$path);
