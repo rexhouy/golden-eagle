@@ -97,7 +97,7 @@ exports.list = function(req, res) {
 				item.prices.forEach(function(price, index) {
 					price.position = 'left:' + size * index + '%;';
 					if (price.count <= item.sales) price.position += 'color: #FF4081;font-size:16px;';
-					if (price.amount > maxCount) maxCount = price.count;
+					if (price.count > maxCount) maxCount = price.count;
 				});
 				var progress = item.sales / maxCount * 100;
 				progress = progress > 100 ? 100 : progress;
