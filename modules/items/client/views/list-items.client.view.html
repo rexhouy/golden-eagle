@@ -26,7 +26,8 @@
       </div>
     </md-content>
     <md-card-actions layout="row" layout-align="end center" ng-hide="vm.end">
-      <md-button class="md-primary" ng-href="/items/{{item._id}}/register">
+      <md-button class="" ng-show="item.sales >= item.prices[1].count">已经结束</md-button>
+      <md-button class="md-primary" ng-href="/items/{{item._id}}/register" ng-hide="item.sales >= item.prices[1].count">
         <md-icon class="material-icons" style="font-size:16px;position:relative;top:3px;">&#xE854;</md-icon>我要参与
       </md-button>
     </md-card-actions>
