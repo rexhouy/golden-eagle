@@ -12,6 +12,18 @@
 
                 vm.authentication = Authentication;
 
+
+
+                var setItemPrice = function(item) {
+                        for (var i = 0; i < item.prices.length; i++) {
+                                if (item.sales >= item.prices[i].count) {
+                                        item.price = item.prices[i].amount;
+                                }
+                        }
+                        return item;
+                };
+
+                item = setItemPrice(item);
                 vm.item = item;
 
                 CustomersService.findByItem(item._id).then(function(result) {

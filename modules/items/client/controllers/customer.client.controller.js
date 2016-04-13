@@ -48,6 +48,7 @@
                         var items = result.items;
                         for (var i = 0; i < items.length; i++) {
                                 items[i] = setItemProgress(items[i]);
+                                items[i] = setItemPrice(items[i]);
                         }
                         vm.items = items;
                 });
@@ -62,6 +63,15 @@
                         var progress = item.sales /  maxCount * 100;
                         progress = progress > 100 ? 100 : progress;
                         item.progress = progress + '%';
+                        return item;
+                };
+
+                var setItemPrice = function(item) {
+                        for (var i = 0; i < item.prices.length; i++) {
+                                if (item.sales >= item.prices[i].count) {
+                                        item.price = item.prices[i].amount;
+                                }
+                        }
                         return item;
                 };
         }
