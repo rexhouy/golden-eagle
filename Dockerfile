@@ -1,18 +1,19 @@
-FROM node:0.10
+FROM node:0.12
 
-MAINTAINER Matthias Luebken, matthias@catalyst-zero.com
+# Install gem sass for  grunt-contrib-sass
+RUN apt-get update -qq && apt-get install -y build-essential
+RUN apt-get install -y ruby
+RUN gem install sass
 
 WORKDIR /home/mean
 
-RUN apt-get update && apt-get install -y libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++ --no-install-recommends
-
 # Install Mean.JS Prerequisites
-RUN npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc install -g grunt-cli
-RUN npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc install -g bower
+RUN npm install -g grunt-cli
+RUN npm install -g bower
 
 # Install Mean.JS packages
 ADD package.json /home/mean/package.json
-RUN npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc install
+RUN npm install
 
 # Manually trigger bower. Why doesnt this work via npm install?
 ADD .bowerrc /home/mean/.bowerrc

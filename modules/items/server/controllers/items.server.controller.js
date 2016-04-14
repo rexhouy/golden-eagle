@@ -101,6 +101,9 @@ exports.list = function(req, res) {
 				});
 				var progress = item.sales / maxCount * 100;
 				progress = progress > 100 ? 100 : progress;
+				if (progress == 100) {
+					item.class = 'item-finished';
+				}
 				item.progress = progress + '%';
 			});
 			res.json(items);

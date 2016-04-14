@@ -2,8 +2,9 @@
   <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="vm.initialized">
     <md-progress-circular class="md-accent md-hue-3" md-mode="indeterminate" md-diameter="70" ng-hide="vm.initialized"></md-progress-circular>
   </div>
-  <md-card ng-cloak ng-repeat="item in vm.items">
+  <md-card ng-cloak ng-repeat="item in vm.items" ng-class="item.class">
     <img ng-src="{{item.img}}" class="md-card-image" alt="{{item.name}}" imageonload="vm.imageLoaded()">
+    <img src="/img/finished.png" class="md-card-image finish-image" ng-hide="item.class == null">
     <md-content>
       <div class="sales-progress">
         <ul class="price-info">
